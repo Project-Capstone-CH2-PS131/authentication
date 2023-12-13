@@ -1,12 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function (_, res) {
   res
     .status(200)
     .json({
       'error': false,
-      'message': 'service running',
+      'message': 'Service Running',
     })
     .end();
 });
