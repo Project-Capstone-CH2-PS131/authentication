@@ -29,7 +29,7 @@ const firebaseConfig = {
 try {
   initializeApp(firebaseConfig);
 } catch (error) {
-  console.log(error.message);
+  console.log(error);
 }
 
 app.use(logger('dev'));
