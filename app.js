@@ -9,6 +9,7 @@ const notFoundRouter = require('./routes/notFound');
 const app = express();
 
 const {
+  NODE_ENV,
   FIREBASE_API_KEY,
   FIREBASE_AUTH_DOMAIN,
   FIREBASE_PROJECT_ID,
@@ -32,7 +33,9 @@ try {
   console.log(error);
 }
 
-app.use(logger('dev'));
+app.use(logger(
+  NODE_ENV === 'production' ? 'common' : 'dev'
+));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
