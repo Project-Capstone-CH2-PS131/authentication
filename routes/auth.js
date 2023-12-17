@@ -22,18 +22,22 @@ router.post('/register', async function (req, res) {
       displayName: username,
     });
 
-    return res.status(201)
+    res.status(201)
       .json({
         'error': false,
-        'message': `User Created`,
-        'token': await auth.currentUser.getIdToken(),
+        'message': 'Register Success',
+        'user': {
+          'name': username,
+          'email': email,
+          'token': await auth.currentUser.getIdToken(),
+        },
       })
       .end();
   } catch (error) {
-    return res.status(400)
+    res.status(400)
       .json({
         'error': true,
-        'message': error.code,
+        'message': error.message,
       })
       .end();
   }
@@ -49,19 +53,23 @@ router.post('/login', async function (req, res) {
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-
-    return res.status(200)
+    const { displayName } = auth.currentUser;
+    res.status(200)
       .json({
         'error': false,
-        'message': 'User Logged In',
-        'token': await auth.currentUser.getIdToken(),
+        'message': 'Login Success',
+        'user': {
+          'name': displayName,
+          'email': email,
+          'token': await auth.currentUser.getIdToken(),
+        },
       })
       .end();
   } catch (error) {
-    return res.status(400)
+    res.status(400)
       .json({
         'error': true,
-        'message': error.code,
+        'message': error.message,
       })
       .end()
   }
